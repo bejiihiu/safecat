@@ -5,6 +5,7 @@ import kz.bejiihiu.safecat.api.BalanceRequestEvent;
 import kz.bejiihiu.safecat.api.RegisterCurrenciesEvent;
 import kz.bejiihiu.safecat.api.RegisterProvidersEvent;
 import kz.bejiihiu.safecat.api.TransactionEvent;
+import kz.bejiihiu.safecat.commands.CommandsModule;
 import kz.bejiihiu.safecat.common.PlatformHelper;
 import kz.bejiihiu.safecat.common.SafeCatCore;
 import net.neoforged.bus.api.Event;
@@ -17,6 +18,7 @@ public class Safecat {
 
   public Safecat() {
     SafeCatCore.initialize().join();
+    CommandsModule.register();
 
     var bus = SafeCatCore.eventBus();
     bus.register(

@@ -3,6 +3,8 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
+evaluationDependsOn(':safecat-commands')
+
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists
@@ -33,17 +35,21 @@ neoForge {
         "${mod_id}" {
             sourceSet sourceSets.main
             sourceSet project(':api').sourceSets.main
+            sourceSet project(':safecat-commands').sourceSets.main
         }
     }
 }
 
 sourceSets.main.compileClasspath += project(':api').sourceSets.main.output
 sourceSets.main.runtimeClasspath += project(':api').sourceSets.main.output
+sourceSets.main.compileClasspath += project(':safecat-commands').sourceSets.main.output
+sourceSets.main.runtimeClasspath += project(':safecat-commands').sourceSets.main.output
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     implementation project(':api')
+    implementation project(':safecat-commands')
     implementation 'com.google.code.gson:gson:2.10.1'
 }
 

@@ -2,6 +2,8 @@ package kz.bejiihiu.safecat.common;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import java.util.UUID;
 import kz.bejiihiu.safecat.api.CommandProvider;
 import kz.bejiihiu.safecat.api.CommandSender;
@@ -21,16 +23,19 @@ public final class PlatformHelper {
       dispatcher.register(
           Commands.literal(cmd.getName())
               .requires(source -> cmd.getPermission() == null || source.hasPermission(2))
-              .executes(
-                  ctx -> {
-                    CommandSender sender = new PlatformCommandSender(ctx.getSource());
-                    String[] args = ctx.getInput().split(" ");
-                    String[] tail = new String[Math.max(0, args.length - 1)];
-                    if (tail.length > 0) System.arraycopy(args, 1, tail, 0, tail.length);
-                    boolean ok = cmd.execute(sender, tail).join();
-                    return ok ? Command.SINGLE_SUCCESS : 0;
-                  }));
+              .executes(ctx -> run(cmd, ctx, ""))
+              .then(
+                  Commands.argument("args", StringArgumentType.greedyString())
+                      .executes(ctx -> run(cmd, ctx, StringArgumentType.getString(ctx, "args")))));
     }
+  }
+
+  private static int run(
+      CommandProvider cmd, CommandContext<CommandSourceStack> ctx, String joined) {
+    CommandSender sender = new PlatformCommandSender(ctx.getSource());
+    String[] args = joined.isEmpty() ? new String[0] : joined.split(" ");
+    boolean ok = cmd.execute(sender, args).join();
+    return ok ? Command.SINGLE_SUCCESS : 0;
   }
 
   /** Shared CommandSender — identical across all platforms. */
@@ -56,7 +61,15 @@ public final class PlatformHelper {
 
     @Override
     public boolean hasPermission(String permission) {
-      return SafeCatAPI.getInstance().hasPermission(getUniqueId(), permission).join();
+      // console (zero UUID) and ops have all permissions
+      var id = getUniqueId();
+      if (id.getMostSignificantBits() == 0 && id.getLeastSignificantBits() == 0) {
+        return true;
+      }
+      if (source.hasPermission(2)) {
+        return true;
+      }
+      return SafeCatAPI.getInstance().hasPermission(id, permission).join();
     }
 
     @Override
