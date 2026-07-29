@@ -1,0 +1,92 @@
+name: Release & Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Get commit count
+        id: version
+        run: echo "COMMIT_NUM=$(git rev-list --count HEAD)" >> $GITHUB_ENV
+
+      - name: Determine release type
+        id: release-type
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit && github.event.head_commit.message || '' }}"
+          if echo "$COMMIT_MSG" | grep -qi '\[ci beta\]'; then
+            echo "IS_PRERELEASE=true" >> $GITHUB_ENV
+            echo "VERSION_TYPE=beta" >> $GITHUB_ENV
+            echo "VERSION_TAG_SUFFIX=-beta" >> $GITHUB_ENV
+          else
+            echo "IS_PRERELEASE=false" >> $GITHUB_ENV
+            echo "VERSION_TYPE=release" >> $GITHUB_ENV
+            echo "VERSION_TAG_SUFFIX=" >> $GITHUB_ENV
+          fi
+
+      - name: Generate changelog
+        run: |
+          git log --oneline --no-decorate "$(git rev-list --max-parents=0 HEAD)..HEAD" > changelog.txt
+
+      - name: Validate (tests)
+        run: ./gradlew common:test
+
+      - name: Build
+        run: ./gradlew build -Pmod_version=${{ env.COMMIT_NUM }}${{ env.VERSION_TAG_SUFFIX }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.COMMIT_NUM }}${{ env.VERSION_TAG_SUFFIX }}
+          name: v${{ env.COMMIT_NUM }}${{ env.VERSION_TAG_SUFFIX }}
+          body_path: changelog.txt
+          prerelease: ${{ env.IS_PRERELEASE }}
+          files: |
+            fabric/build/libs/*.jar
+            forge/build/libs/*.jar
+            neoforge/build/libs/*.jar
+
+      - name: Publish to Modrinth, CurseForge & GitHub
+        uses: Kira-NT/mc-publish@v3
+        with:
+          modrinth-id: G2fdU8dV
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-id: ${{ vars.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+            forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            api/build/libs/!(*-@(dev|sources|javadoc)).jar
+            common/build/libs/!(*-@(dev|sources|javadoc)).jar
+          loaders: |
+            fabric
+            forge
+            neoforge
+          game-versions: "1.21"
+          java: "21"
+          version-type: ${{ env.VERSION_TYPE }}
+          changelog-file: CHANGELOG.md

@@ -1,0 +1,37 @@
+# MacOS
+.DS_Store
+
+# Gradle
+.gradle/
+build/
+out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+.idea_modules/
+
+# Eclipse
+*.classpath
+*.project
+*.settings/
+
+# VS Code
+.vscode/
+
+# Gradle wrapper local properties
+local.properties
+
+# Run directories (Minecraft dev)
+run/
+
+# Crash logs
+hs_err_pid*
+
+# Minecraft server runtime files
+runs/
+*.log
+*.log.gz
+crash-reports/
+eula.txt
+server.properties

@@ -1,0 +1,7 @@
+{
+  "default-currency": "safecat:coin",
+  "rate-auto-update": true,
+  "exchange-rates": {
+    "safecat:coin": 1.0
+  }
+}

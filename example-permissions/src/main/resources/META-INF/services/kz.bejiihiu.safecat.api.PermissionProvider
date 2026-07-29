@@ -1,0 +1,3 @@
+# SafeCat PermissionProvider example implementation.
+# Discovered automatically via ServiceLoader — no manual registration needed.
+kz.bejiihiu.safecat.example.permissions.ExamplePermissionProvider

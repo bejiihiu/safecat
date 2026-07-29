@@ -1,0 +1,2 @@
+# ChatProvider implementations are registered here by their respective modules.
+# No built-in ChatProvider exists yet — mods add their class to this file.

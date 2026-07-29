@@ -1,0 +1,47 @@
+plugins {
+    id 'multiloader-common'
+}
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    commonJava(sourceSets.main.java.sourceDirectories.singleFile) {
+        builtBy tasks.compileJava
+    }
+    commonResources(sourceSets.main.resources.sourceDirectories.singleFile) {
+        builtBy tasks.processResources
+    }
+}
+
+// PlatformHelper has Minecraft imports — compiled only by platform modules
+tasks.named('compileJava', JavaCompile) {
+    exclude '**/PlatformHelper.java'
+}
+
+dependencies {
+    api project(':api')
+    compileOnly 'org.slf4j:slf4j-api:2.0.9'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
+    testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.9'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs += [
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.math=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.time=ALL-UNNAMED',
+    ]
+}

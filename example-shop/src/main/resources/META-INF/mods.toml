@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "[51,)"
+license = "AGPL-3.0"
+
+[[mods]]
+modId = "example_shop"
+version = "1.0"
+displayName = "Example Shop"
+description = '''Example mod that consumes the SafeCat economy API.
+Shows how any Forge mod can use SafeCatAPI for transactions
+and listen to BalanceChangeEvent for custom gating.'''
+authors = "SafeCat Contributors"
+
+[[dependencies."example_shop"]]
+modId = "forge"
+mandatory = true
+versionRange = "[51,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."example_shop"]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21, 1.22)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."example_shop"]]
+modId = "safecat"
+mandatory = true
+versionRange = "[1.0,)"
+ordering = "NONE"
+side = "BOTH"

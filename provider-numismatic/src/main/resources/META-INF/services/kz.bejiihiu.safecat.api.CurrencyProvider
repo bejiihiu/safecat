@@ -1,0 +1,3 @@
+# SafeCat CurrencyProvider implementation for Numismatic Overhaul integration.
+# Discovered automatically via ServiceLoader — no manual registration needed.
+kz.bejiihiu.safecat.provider.numismatic.NumismaticProvider

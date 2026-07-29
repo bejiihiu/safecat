@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-extension-${project.name}"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly project(':api')
+    compileOnly 'net.luckperms:api:5.5'
+    compileOnly 'org.slf4j:slf4j-api:2.0.9'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+    withJavadocJar()
+}
