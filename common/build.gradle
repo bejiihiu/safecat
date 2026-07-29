@@ -27,6 +27,10 @@ tasks.named('compileJava', JavaCompile) {
     exclude '**/PlatformHelper.java'
 }
 
+tasks.named('javadoc', Javadoc) {
+    exclude '**/PlatformHelper.java'
+}
+
 dependencies {
     api project(':api')
     compileOnly 'org.slf4j:slf4j-api:2.0.9'

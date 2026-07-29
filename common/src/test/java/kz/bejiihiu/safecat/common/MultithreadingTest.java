@@ -36,9 +36,9 @@ class MultithreadingTest {
   void concurrentRegistryOperations() throws InterruptedException {
     int threadCount = 4;
     int opsPerThread = 100;
+    AtomicInteger errors = new AtomicInteger();
     try (ExecutorService exec = Executors.newFixedThreadPool(threadCount)) {
       CountDownLatch latch = new CountDownLatch(threadCount);
-      AtomicInteger errors = new AtomicInteger();
 
       for (int t = 0; t < threadCount; t++) {
         final int threadId = t;
@@ -76,9 +76,9 @@ class MultithreadingTest {
     }
 
     int requestCount = 200;
+    AtomicInteger errors = new AtomicInteger();
     try (ExecutorService exec = Executors.newFixedThreadPool(8)) {
       CountDownLatch latch = new CountDownLatch(requestCount);
-      AtomicInteger errors = new AtomicInteger();
 
       for (int i = 0; i < requestCount; i++) {
         final int idx = i % providerCount;
@@ -110,9 +110,9 @@ class MultithreadingTest {
       registry.register(new TestProvider(id));
     }
 
+    AtomicInteger errors = new AtomicInteger();
     try (ExecutorService exec = Executors.newFixedThreadPool(4)) {
       CountDownLatch latch = new CountDownLatch(2);
-      AtomicInteger errors = new AtomicInteger();
 
       exec.submit(
           () -> {
@@ -152,9 +152,9 @@ class MultithreadingTest {
   void concurrentEventBusOperations() throws InterruptedException {
     int threadCount = 4;
     int eventsPerThread = 200;
+    AtomicInteger handled = new AtomicInteger();
     try (ExecutorService exec = Executors.newFixedThreadPool(threadCount)) {
       CountDownLatch latch = new CountDownLatch(threadCount);
-      AtomicInteger handled = new AtomicInteger();
 
       for (int i = 0; i < 4; i++) {
         eventBus.on(TestEvent.class, e -> handled.incrementAndGet());
