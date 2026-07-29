@@ -55,9 +55,7 @@ public final class SafeCatConfig {
             : "safecat:coin";
     JsonElement autoUpdateEl = json.get("rate-auto-update");
     boolean autoUpdate =
-        autoUpdateEl != null && !autoUpdateEl.isJsonNull()
-            ? autoUpdateEl.getAsBoolean()
-            : true;
+        autoUpdateEl != null && !autoUpdateEl.isJsonNull() ? autoUpdateEl.getAsBoolean() : true;
 
     Map<String, BigDecimal> rates = new HashMap<>();
     JsonObject exchangeNode = json.getAsJsonObject("exchange-rates");

@@ -31,7 +31,7 @@ import kz.bejiihiu.safecat.api.SafeCatRegistry;
 public abstract class BaseChatAdapter implements ChatProvider {
 
   @Override
-  public void init(SafeCatRegistry registry) {}
+  public abstract void init(SafeCatRegistry registry);
 
   /** Derives a provider id from the class name. Override if you need a stable id. */
   @Override
