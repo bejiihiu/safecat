@@ -6,7 +6,6 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,9 +49,15 @@ public final class SafeCatConfig {
 
   static SafeCatConfig parse(JsonObject json) {
     JsonElement defaultCurrencyEl = json.get("default-currency");
-    String defaultCurrency = defaultCurrencyEl != null && !defaultCurrencyEl.isJsonNull() ? defaultCurrencyEl.getAsString() : "safecat:coin";
+    String defaultCurrency =
+        defaultCurrencyEl != null && !defaultCurrencyEl.isJsonNull()
+            ? defaultCurrencyEl.getAsString()
+            : "safecat:coin";
     JsonElement autoUpdateEl = json.get("rate-auto-update");
-    boolean autoUpdate = autoUpdateEl != null && !autoUpdateEl.isJsonNull() ? autoUpdateEl.getAsBoolean() : true;
+    boolean autoUpdate =
+        autoUpdateEl != null && !autoUpdateEl.isJsonNull()
+            ? autoUpdateEl.getAsBoolean()
+            : true;
 
     Map<String, BigDecimal> rates = new HashMap<>();
     JsonObject exchangeNode = json.getAsJsonObject("exchange-rates");

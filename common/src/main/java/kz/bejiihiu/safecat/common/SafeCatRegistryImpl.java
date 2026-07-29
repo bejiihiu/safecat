@@ -165,5 +165,4 @@ public final class SafeCatRegistryImpl implements SafeCatRegistry {
     sorted.sort(Comparator.comparingInt(CurrencyProvider::priority).reversed());
     return List.copyOf(sorted);
   }
-
 }
