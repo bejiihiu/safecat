@@ -28,11 +28,23 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Check release trigger
+        id: check
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit && github.event.head_commit.message || '' }}"
+          if echo "$COMMIT_MSG" | grep -qiE '\[ci (release|beta)\]'; then
+            echo "SHOULD_RELEASE=true" >> $GITHUB_ENV
+          else
+            echo "SHOULD_RELEASE=false" >> $GITHUB_ENV
+          fi
+
       - name: Get commit count
+        if: env.SHOULD_RELEASE == 'true'
         id: version
         run: echo "COMMIT_NUM=$(git rev-list --count HEAD)" >> $GITHUB_ENV
 
       - name: Determine release type
+        if: env.SHOULD_RELEASE == 'true'
         id: release-type
         run: |
           COMMIT_MSG="${{ github.event.head_commit && github.event.head_commit.message || '' }}"
@@ -47,16 +59,20 @@ jobs:
           fi
 
       - name: Generate changelog
+        if: env.SHOULD_RELEASE == 'true'
         run: |
           git log --oneline --no-decorate "$(git rev-list --max-parents=0 HEAD)..HEAD" > changelog.txt
 
       - name: Validate (tests)
+        if: env.SHOULD_RELEASE == 'true'
         run: ./gradlew common:test
 
       - name: Build
+        if: env.SHOULD_RELEASE == 'true'
         run: ./gradlew build -Pmod_version=${{ env.COMMIT_NUM }}${{ env.VERSION_TAG_SUFFIX }}
 
       - name: Create GitHub Release
+        if: env.SHOULD_RELEASE == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.COMMIT_NUM }}${{ env.VERSION_TAG_SUFFIX }}
@@ -70,6 +86,7 @@ jobs:
             extension-luckperms/build/libs/*.jar
 
       - name: Publish to Modrinth, CurseForge & GitHub
+        if: env.SHOULD_RELEASE == 'true'
         uses: Kira-NT/mc-publish@v3
         with:
           modrinth-id: G2fdU8dV
