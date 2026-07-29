@@ -10,9 +10,8 @@
 
 </div>
 
-Безопасные котики. SafeCat — a multi-loader economy library for Minecraft mods. Think Vault, but for Forge, Fabric, and NeoForge.
-
-No reflection. Pure mediator. Thread-safe. Async by design.
+SafeCat — a multi-loader economy library for Minecraft mods. Think Vault, but for Forge, Fabric, and NeoForge.
+_Cats love being safe_
 
 ## Features
 
