@@ -4,9 +4,23 @@ SafeCat ships an **extension system** — third-party mods can integrate with Sa
 by dropping an extension JAR into `config/safecat/extensions/`.
 
 Extensions are loaded at startup by `ExtensionLoader`. Each extension:
-- Checks if its target mod is installed
+- Checks if its target mod is installed at runtime
 - If yes, registers the appropriate SafeCat provider(s)
 - If no, does nothing (graceful no-op)
+
+## Auto-Download
+
+On **first server startup**, SafeCat automatically downloads available extensions
+from the **latest GitHub release** into `config/safecat/extensions/`.
+
+This is handled by `ExtensionDownloader`:
+1. Reads `https://api.github.com/repos/bejiihiu/safecat/releases/latest`
+2. Finds the extension JAR in the release assets
+3. Downloads it to `config/safecat/extensions/<artifact>.jar`
+4. `ExtensionLoader` picks it up on the same startup
+
+The download is **one-time** — if the file already exists, it is skipped.
+Delete the JAR and restart to force re-download.
 
 ## Available Extensions
 

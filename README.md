@@ -16,16 +16,17 @@ No reflection. Pure mediator. Thread-safe. Async by design.
 
 ## Features
 
-- **Multi-loader** — Forge, Fabric, and NeoForge in one codebase. One API to rule them all.
-- **Multi-currency** — not locked to a single currency type. Providers register any number of currencies.
-- **Permission API** — `PermissionProvider` interface for cross-mod permission checks.
-- **Chat API** — `ChatProvider` for formatted chat messages, with `ChatFormatEvent` for interception.
-- **Event-driven** — typed events for registration, balance changes, permission checks, chat formatting, and command registration. No reflection or `instanceof` discovery.
-- **Thread-safe** — all mutating methods return `CompletableFuture<>`. Core data structures are safe for concurrent access.
-- **Java 21 records** — API surfaces use records for immutability and clarity (`Currency`, `TransactionResult`, `Event`, `EventReason`).
-- **ServiceLoader discovery** — providers auto-register via `java.util.ServiceLoader`. No manual wiring.
-- **JSON config** — all configuration is in `safecat.json` (not `.properties`). Clean, typed, easy to edit.
-- **Pure Java `api/` module** — zero Minecraft or loader dependencies. Can be used outside the game.
+- **Multi-loader** — Forge, Fabric, and NeoForge in one codebase
+- **Multi-currency** — not locked to a single currency type. Register any number of currencies
+- **Permission API** — `PermissionProvider` with LuckPerms integration (auto-downloaded on first run)
+- **Chat API** — `ChatProvider` for formatted chat messages with `ChatFormatEvent` interception
+- **Event-driven** — typed events for registration, balance changes, permission checks, chat formatting, and command registration. No reflection or `instanceof` discovery
+- **Thread-safe** — all mutating methods return `CompletableFuture<>`. Core data structures are safe for concurrent access
+- **Java 21 records** — API surfaces use records for immutability (`Currency`, `TransactionResult`, `Event`, `EventReason`)
+- **ServiceLoader discovery** — providers auto-register via `java.util.ServiceLoader`
+- **Extension system** — drop-in JARs in `config/safecat/extensions/` with auto-download on first install
+- **JSON config** — all configuration in `safecat.json`. Clean, typed, easy to edit
+- **Pure Java `api/` module** — zero Minecraft or loader dependencies. Can be used outside the game
 
 ## Quick Start
 

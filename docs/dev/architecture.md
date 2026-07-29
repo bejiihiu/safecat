@@ -210,7 +210,10 @@ safecat/
 │           ├── SafeCatRegistryImpl.java # ServiceLoader + event-based registration
 │           ├── SafeCatAPIImpl.java      # API implementation + centralized amount validation
 │           ├── PlatformHelper.java      # Shared command registration + PlatformCommandSender
-│           └── SafecatCommand.java      # Built-in /safecat command (always available)
+│           ├── SafecatCommand.java      # Built-in /safecat command (always available)
+│           └── extension/
+│               ├── ExtensionLoader.java     # Loads extensions from config/safecat/extensions/
+│               └── ExtensionDownloader.java # Auto-downloads extensions from GitHub Releases
 ├── forge/                   # Forge adapter. Forge events ↔ SafeCat API.
 ├── fabric/                  # Fabric adapter. Fabric API ↔ SafeCat API.
 ├── neoforge/                # NeoForge adapter. NeoForge events ↔ SafeCat API.
