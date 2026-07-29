@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+}
+
+base {
+    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.google.code.gson:gson:2.10.1'
+    compileOnly 'org.slf4j:slf4j-api:2.0.9'
+}
