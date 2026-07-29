@@ -3,6 +3,7 @@ package kz.bejiihiu.safecat;
 import java.util.function.Consumer;
 import kz.bejiihiu.safecat.api.BalanceChangeEvent;
 import kz.bejiihiu.safecat.api.TransactionEvent;
+import kz.bejiihiu.safecat.commands.CommandsModule;
 import kz.bejiihiu.safecat.common.PlatformHelper;
 import kz.bejiihiu.safecat.common.SafeCatCore;
 import net.fabricmc.api.ModInitializer;
@@ -35,6 +36,7 @@ public class Safecat implements ModInitializer {
   @Override
   public void onInitialize() {
     SafeCatCore.initialize().join();
+    CommandsModule.register();
 
     var bus = SafeCatCore.eventBus();
     bus.register(

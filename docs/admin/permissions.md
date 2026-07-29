@@ -17,18 +17,17 @@ Commands registered through `CommandProvider` have two layers of access control:
    `PermissionProvider`s in priority order (highest first). The first provider that returns `true`
    grants access. If all return `false`, access is denied.
 
-This means a command with `getPermission() == null` (like `/safecat`) has no gate at all.
-A command with `getPermission() == "myshop.buy"` is gated by both op level 2 and any
-registered permission plugins.
+The `/safecat` base command has no Brigadier gate (`getPermission() == null`), but subcommands
+like `currencies` check their own permission via `CommandSender.hasPermission()` — so a permission
+plugin (like LuckPerms) can grant or deny individual subcommands.
 
 ## Built-in Commands
 
 | Command | Permission Node | Default | Notes |
 |---------|----------------|---------|-------|
-| `/safecat` | none | everyone | `getPermission()` returns null, no gate |
-| `/safecat help` | none | everyone | handled by `/safecat` |
-| `/safecat status` | none | everyone | handled by `/safecat` |
-| `/safecat currencies` | none | everyone | handled by `/safecat` |
+| `/safecat help` | `safecat.command.help` | everyone | Show available subcommands |
+| `/safecat status` | none | everyone | Show API status (no permission check) |
+| `/safecat currencies` | `safecat.command.currencies` | everyone | List registered currencies |
 
 ## Custom Commands (from providers)
 

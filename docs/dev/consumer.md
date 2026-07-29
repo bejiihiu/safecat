@@ -226,19 +226,21 @@ public class MyCommand implements CommandProvider {
 }
 ```
 
-### Built-in `/safecat` Command
+### Built-in `/safecat` Commands
 
-SafeCat registers a built-in `/safecat` command automatically during startup. It requires no
-provider, has no permission requirement, and works on all platforms:
+SafeCat registers user-facing commands via the `safecat-commands` module. Each platform loader
+calls `CommandsModule.register()` after core initialisation. Commands use `CompletableFuture`
+for async execution and format output via `ChatProvider` when available.
 
-| Subcommand | Description |
-|------------|-------------|
-| `/safecat help` | Show help message and version |
-| `/safecat status` | Show loaded providers and currencies |
-| `/safecat currencies` | List all registered currencies |
+| Command | Permission | Description |
+|---------|-----------|-------------|
+| `/safecat help` | `safecat.command.help` | Show available subcommands |
+| `/safecat status` | none | Show API status |
+| `/safecat currencies` | `safecat.command.currencies` | List all registered currencies |
 
-The command is registered by `SafecatCommand` in the `common` module during
-`SafeCatCore.initialize()`.
+To implement a custom command, use `SimpleCommand` or implement `CommandProvider` directly
+(see examples above). Note that SafeCat is primarily an economy API — user-facing economy
+commands (balance, pay, etc.) are expected from consumer mods, not from SafeCat itself.
 
 ## Best Practices
 

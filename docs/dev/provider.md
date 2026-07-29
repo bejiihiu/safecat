@@ -323,6 +323,7 @@ and SafeCat together.
 - **Keep `init()` lightweight.** Register your currency and provider, but defer heavy
   initialization to a background thread if needed.
 
-- **The `/safecat` command is built-in.** SafeCat registers it automatically during
-  `SafeCatCore.initialize()`. It displays version info, currencies, and provider status.
-  You don't need to register it yourself.
+- **SafeCat commands live in the `safecat-commands` module.** Each platform loader registers
+  them via `CommandsModule.register()` after core init. The commands provide `help`, `status`,
+  and `currencies` — no need to reimplement them. User-facing economy commands (balance,
+  pay, etc.) are expected from consumer mods.

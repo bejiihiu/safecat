@@ -103,15 +103,16 @@ Download URL: `https://api.github.com/repos/bejiihiu/safecat/releases/latest` (f
 Expected output:
 ```
 [SafeCat] Currencies: 1
-[SafeCat] Config loaded: true
+[SafeCat] API: available
 [SafeCat] Event bus: active
+ - numismatic:coin (Numismatic Coin)
 ```
 
 ### Detailed Checks
 
 | Check | Command | What To Look For |
 |-------|---------|------------------|
-| List currencies | `/safecat currencies` | Registered currencies with IDs and symbols |
+| List currencies | `/safecat currencies` | Registered currencies with IDs, symbols, and types |
 | Extension loaded | Check `config/safecat/extensions/` | JAR files present |
 | LuckPerms integration | `/lp sync` then check perms | Permissions work through SafeCat |
 | Provider registered | Server log at startup | `[SafeCat] Registered provider: ...` |

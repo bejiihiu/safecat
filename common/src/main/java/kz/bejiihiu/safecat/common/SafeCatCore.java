@@ -39,7 +39,7 @@ public final class SafeCatCore {
           registry.initialize(eventBus);
           api = new SafeCatAPIImpl(registry, eventBus);
           SafeCatAPI.setInstance(api);
-          new SafecatCommand(); // Registers itself via constructor.
+          // Commands are now registered by each platform loader via safecat-commands module.
           new ExtensionDownloader().downloadMissing();
           new ExtensionLoader().loadAll(); // Load extensions from config/safecat/extensions/.
         });
