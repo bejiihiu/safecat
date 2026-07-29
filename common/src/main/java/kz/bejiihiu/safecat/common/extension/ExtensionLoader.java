@@ -87,4 +87,5 @@ public final class ExtensionLoader {
     } catch (MalformedURLException e) {
       LOG.warn("invalid jar path: {}", jar, e);
     }
+  }
 }

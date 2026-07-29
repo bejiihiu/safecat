@@ -42,12 +42,14 @@ public class SafeCatEventBus {
   @SuppressWarnings("unchecked")
   private <T> void registerMethod(Object subscriber, Method method, Class<?> paramType) {
     method.setAccessible(true);
-    on((Class<T>) paramType, event -> {
-      try {
-        method.invoke(subscriber, event);
-      } catch (Exception e) {
-        throw new RuntimeException("event handler failed", e);
-      }
-    });
+    on(
+        (Class<T>) paramType,
+        event -> {
+          try {
+            method.invoke(subscriber, event);
+          } catch (Exception e) {
+            throw new RuntimeException("event handler failed", e);
+          }
+        });
   }
 }
