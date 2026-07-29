@@ -71,9 +71,10 @@ public final class ExtensionLoader {
       LOG.warn("invalid jar path: {}", jar, e);
       return;
     }
-    try (URLClassLoader cl = new URLClassLoader(new URL[] {jarUrl}, getClass().getClassLoader())) {
-      classLoaders.add(cl);
+    URLClassLoader cl = new URLClassLoader(new URL[] {jarUrl}, getClass().getClassLoader());
+    classLoaders.add(cl);
 
+    try {
       ServiceLoader<SafeCatExtension> sl = ServiceLoader.load(SafeCatExtension.class, cl);
       boolean found = false;
       for (SafeCatExtension ext : sl) {
@@ -88,6 +89,12 @@ public final class ExtensionLoader {
       }
       if (!found) {
         LOG.warn("no SafeCatExtension implementations in {}", jar.getFileName());
+      }
+    } finally {
+      try {
+        cl.close();
+      } catch (IOException e) {
+        LOG.warn("failed to close classloader for {}", jar.getFileName(), e);
       }
     }
   }
