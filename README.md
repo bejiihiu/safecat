@@ -1,4 +1,4 @@
-<div align="center">
+<div>
 
 [![Build](https://img.shields.io/github/actions/workflow/status/bejiihiu/safecat/build.yml?branch=main&logo=github)](https://github.com/bejiihiu/safecat/actions)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
@@ -6,7 +6,7 @@
 [![Fabric](https://img.shields.io/badge/loader-Fabric-dbd0b4?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABNklEQVQ4T2NkYPj/n4EBBJgYKAQMlALG/38ZGKDgPyMD/jKGBGJmBg4GIM0CxUwMDJzMDAwMwAAMQAZ8BpIMDCwMDAyMDAwsDAwsTAz//zMwMDIwsP//z8DA8J+BAUgzMDD8Z2Bg+MfAwMDw/C0DgwADCwMDw38GBgZ7cwb2ry8YGBh+MTAw/GJgYPj5k4GB4RcDA8MvBgaG3ywMDGxMDAwMDCBX/P/PwMDwl4GB4ScDA8OPHwz/Ll5jYGBgYPj9k4GB4TcDA8NvBgaG/z8ZGJj+MTAwvGVgYNDhYGBg+MXAwPCNgYHhFwMDw08GBoaXDAwMDL8YGBh+MTAw/H9/l4GBgaHTXICBgeEXAwPDTwYGhp8MDAw/GH6h6/uPDrBqBikAAAqjEHjSfrpTAAAAAElFTkSuQmCC)](https://fabricmc.net)
 [![NeoForge](https://img.shields.io/badge/loader-NeoForge-FF6A00?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABJklEQVQ4T2NkYPj/n4EBBJgYKAQMlALG/38ZGKDgPyMD/jKGBGJmBg4GIM0CxUwMDJzMDAwMwAAMQAZ8BpIMDCwMDAyMDAwsDAwsTAz//zMwMDIwsP//z8DA8J+BAUgzMDD8Z2Bg+MfAwMDw/C0DgwADCwMDw38GBgZ7cwb2ry8YGBh+MTAw/GJgYPj5k4GB4RcDA8MvBgaG3ywMDGxMDAwMDCBX/P/PwMDwl4GB4ScDA8OPHwz/Ll5jYGBgYPj9k4GB4TcDA8NvBgaG/z8ZGJj+MTAwvGVgYNDhYGBg+MXAwPCNgYHhFwMDw08GBoaXDAwMDL8YGBh+MTAw/H9/l4GBgaHTXICBgeEXAwPDTwYGhp8MDAw/GH6h6/uPDrBqBikAAAqjEHjSfrpTAAAAAElFTkSuQmCC)](https://neoforged.net)
 
-<h1>SafeCat  <img src="branding/lolitslogo.png" alt="SafeCat Logo" width="64"/></h1>
+<h1 align="left">SafeCat <img src="branding/lolitslogo.png" alt="SafeCat Logo" width="64" align="right"/></h1>
 
 </div>
 
