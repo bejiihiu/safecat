@@ -67,6 +67,7 @@ jobs:
             fabric/build/libs/*.jar
             forge/build/libs/*.jar
             neoforge/build/libs/*.jar
+            extension-luckperms/build/libs/*.jar
 
       - name: Publish to Modrinth, CurseForge & GitHub
         uses: Kira-NT/mc-publish@v3

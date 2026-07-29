@@ -148,6 +148,5 @@ public class ExampleExtension implements SafeCatExtension {
       // return CompletableFuture.completedFuture(MyChatAPI.getPrefix(player));
       return CompletableFuture.completedFuture(Optional.empty());
     }
-
   }
 }

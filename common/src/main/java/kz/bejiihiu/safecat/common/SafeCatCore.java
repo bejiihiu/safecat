@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 import kz.bejiihiu.safecat.api.SafeCatAPI;
 import kz.bejiihiu.safecat.api.SafeCatEventBus;
+import kz.bejiihiu.safecat.common.extension.ExtensionDownloader;
 import kz.bejiihiu.safecat.common.extension.ExtensionLoader;
 
 public final class SafeCatCore {
@@ -39,6 +40,7 @@ public final class SafeCatCore {
           api = new SafeCatAPIImpl(registry, eventBus);
           SafeCatAPI.setInstance(api);
           new SafecatCommand(); // Registers itself via constructor.
+          new ExtensionDownloader().downloadMissing();
           new ExtensionLoader().loadAll(); // Load extensions from config/safecat/extensions/.
         });
   }
