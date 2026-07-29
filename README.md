@@ -52,9 +52,9 @@ No reflection. Pure mediator. Thread-safe. Async by design.
 Extensions are JARs dropped into `config/safecat/extensions/`.  
 Each checks for its target mod at runtime and registers providers automatically.
 
-| Extension             | Target Mod  | Interface             | Status |
-|-----------------------|-------------|-----------------------|--------|
-| `extension-luckperms` | LuckPerms   | `PermissionProvider`  | ✅ Working |
+| Extension             | Target Mod  | Interface             |
+|-----------------------|-------------|-----------------------|
+| `extension-luckperms` | LuckPerms   | `PermissionProvider`  |
 
 Build:
 ```bash
